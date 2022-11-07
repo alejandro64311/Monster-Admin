@@ -18,6 +18,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { UserAnalysisComponent } from "src/app/pages/user-analysis/user-analysis.component";
 import { UserMeasuresComponent } from "src/app/pages/user-measures/user-measures.component";
 import { UserInfoComponent } from "src/app/pages/user-info/user-info.component";
+import { UserSelectModalComponent } from "src/app/pages/user-select-modal/user-select-modal.component";
 
 @NgModule({
   imports: [
@@ -39,7 +40,8 @@ import { UserInfoComponent } from "src/app/pages/user-info/user-info.component";
     // RtlComponent
     UserAnalysisComponent,
     UserMeasuresComponent,
-    UserInfoComponent
+    UserInfoComponent,
+    UserSelectModalComponent
   ]
 })
 export class AdminLayoutModule {}
