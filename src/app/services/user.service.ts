@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CreateUserCommand, UpdateUserCommand, User } from '../models/user/user.model';
-import { RequestPaginationApi, ResponseApi } from '../utils/models/api.model';
+import { RequestPaginationApi, ResponseApi, ResponsePaginationApi } from '../utils/models/api.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +16,17 @@ export class UserService {
 
   getAll(
     request: RequestPaginationApi
-  ): Observable<ResponseApi<User>> {
+  ): Observable<ResponsePaginationApi<User>> {
    
-    return this.http.get<ResponseApi<User>>(
+    return this.http.get<ResponsePaginationApi<User>>(
       `${environment.api}/user?${request.getUri()}`
+    );
+  }
+  getById(
+    id:number
+  ): Observable<ResponseApi<User>> {
+    return this.http.get<ResponseApi<User>>(
+      `${environment.api}/user/${id}`
     );
   }
   create(
