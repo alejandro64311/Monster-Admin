@@ -21,9 +21,9 @@ export class MeasurementEffects {
       }),
       mergeMap((action: any) => {
         console.log(action);
-        return this.MeasurementService.getAllByUserId(action.payload.request).pipe(
+        return this.MeasurementService.getAllByUserId(action.payload.id,action.payload.requestParams).pipe(
           map(
-            (response) => new LoadMeasurementAllSuccess({ data: response.data })
+            (response) => new LoadMeasurementAllSuccess({ data: response })
           ),
           tap((Measurements) => {
             console.log("End Load Measurements All", Measurements);
@@ -61,7 +61,7 @@ export class MeasurementEffects {
       }),
       mergeMap((action: any) => {
         console.log(action);
-        return this.MeasurementService.create(action.payload.request).pipe(
+        return this.MeasurementService.create(action.payload.id,action.payload.request).pipe(
           map(
             (response) => new CreateMeasurementSuccess({ data: response })
           ),

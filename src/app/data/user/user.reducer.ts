@@ -1,7 +1,7 @@
 import { createSelector } from "@ngrx/store";
 import { User } from "src/app/models/user/user.model";
 import { PaginationWrapper } from "src/app/utils/models/api.model";
-import { BaseState, Message } from "./commons/base-state.data";
+import { BaseState, Message } from "../commons/base-state.data";
 import { UserActionTypes } from "./user.actions";
 
 export interface UserState extends BaseState {

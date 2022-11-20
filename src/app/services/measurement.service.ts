@@ -22,6 +22,14 @@ getAllByUserId(
     `${environment.api}/v1/measurements/${userId}?${request.getUri()}`
   );
 }
+getById(
+  userId:number
+): Observable<ResponseApi<Measurement>> {
+ 
+  return this.http.get<ResponseApi<Measurement>>(
+    `${environment.api}/v1/measurements/${userId}`
+  );
+}
 create(
   userId:number,
   Measurement:CreateMeasurementCommand
@@ -30,11 +38,11 @@ create(
     `${environment.api}/v1/measurements/${userId}`,Measurement
   );
 }
-// update(
-//    id: number,Measurement:UpdateMeasurementCommand
-// ): Observable<ResponseApi<Measurement>> {
-//   return this.http.put<ResponseApi<Measurement>>(
-//     `${environment.api}/v1/measurements/${id}`,Measurement
-//   );
-// }
+update(
+   id: number,Measurement:UpdateMeasurementCommand
+): Observable<ResponseApi<Measurement>> {
+  return this.http.put<ResponseApi<Measurement>>(
+    `${environment.api}/v1/measurements/${id}`,Measurement
+  );
+}
 }

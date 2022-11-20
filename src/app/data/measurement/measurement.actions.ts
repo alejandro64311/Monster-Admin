@@ -16,7 +16,7 @@ export enum MeasurementActionTypes {
   
   export class LoadMeasurementAll implements Action {
     readonly type = MeasurementActionTypes.LOAD_MEASUREMENT;
-    constructor(public payload: { request: RequestPaginationApi }) {}
+    constructor(public payload: {id:number, requestParams: RequestPaginationApi }) {}
   }
   export class LoadMeasurementAllSuccess implements Action {
     readonly type = MeasurementActionTypes.LOAD_MEASUREMENT_SUCCESS;
@@ -32,7 +32,7 @@ export enum MeasurementActionTypes {
   }
   export class CreateMeasurement implements Action {
     readonly type = MeasurementActionTypes.CREATE_MEASUREMENT;
-    constructor(public payload: { request: CreateMeasurementCommand }) {}
+    constructor(public payload: { id:number,request: CreateMeasurementCommand }) {}
   }
   export class CreateMeasurementSuccess implements Action {
     readonly type = MeasurementActionTypes.CREATE_MEASUREMENT_SUCCESS;

@@ -1,109 +1,110 @@
 import { createSelector } from "@ngrx/store";
-import { User } from "src/app/models/user/user.model";
+import { Measurement } from "src/app/models/user/measurement.model";
 import { PaginationWrapper } from "src/app/utils/models/api.model";
-import { BaseState, Message } from "./commons/base-state.data";
-import { UserActionTypes } from "./user.actions";
+import { BaseState, Message } from "../commons/base-state.data";
+import { MeasurementActionTypes } from "./measurement.actions";
 
-export interface UserState extends BaseState {
-    currentUser: User;
-    users: PaginationWrapper<User>;
+
+export interface MeasurementState extends BaseState {
+    currentMeasurement: Measurement;
+    Measurements: PaginationWrapper<Measurement>;
   }
   
-  const initialUserState: UserState = {
-    currentUser: null,
-    users: new PaginationWrapper(),
+  const initialMeasurementState: MeasurementState = {
+    currentMeasurement: null,
+    Measurements: new PaginationWrapper(),
     loading: false, 
     message: null
   };
   
-  export function UserReducer(
-    appUserState = initialUserState,
+  export function MeasurementReducer(
+    appMeasurementState = initialMeasurementState,
     action
-  ): UserState {
+  ): MeasurementState {
     switch (action.type) {
-      case UserActionTypes.LOAD_USER: {
+      case MeasurementActionTypes.LOAD_MEASUREMENT: {
         return {
-          ...appUserState,
+          ...appMeasurementState,
           loading: true,
         };
       }
-      case UserActionTypes.LOAD_USER_SUCCESS: {
+      case MeasurementActionTypes.LOAD_MEASUREMENT_SUCCESS: {
         return {
-          ...appUserState,
-          users: action.payload.data,
+          ...appMeasurementState,
+          Measurements: action.payload.data,
           loading: false,
         };
       }
-      case UserActionTypes.LOAD_USER_BY_ID: {
+      case MeasurementActionTypes.LOAD_MEASUREMENT_BY_ID: {
         return {
-          ...appUserState,
+          ...appMeasurementState,
           loading: true,
         };
       }
-      case UserActionTypes.LOAD_USER_BY_ID_SUCCESS: {
+      case MeasurementActionTypes.LOAD_MEASUREMENT_BY_ID_SUCCESS: {
         return {
-          ...appUserState,
-          currentUser: action.payload.data,
+          ...appMeasurementState,
+          currentMeasurement: action.payload.data,
           loading: false,
         };
       }
-      case UserActionTypes.CREATE_USER: {
+      case MeasurementActionTypes.CREATE_MEASUREMENT: {
         return {
-          ...appUserState,
+          ...appMeasurementState,
           loading: true,
         };
       }
-      case UserActionTypes.CREATE_USER_SUCCESS: {
+      case MeasurementActionTypes.CREATE_MEASUREMENT_SUCCESS: {
         let response = action.payload.data;
-        let users = appUserState.users;
-        users.items = [...users.items, response.data];
+        let Measurements = appMeasurementState.Measurements;
+        Measurements.items = [...Measurements.items, response.data];
   
         return {
-          ...appUserState,
-          users: users,
-          currentUser: response.data,
+          ...appMeasurementState,
+          Measurements: Measurements,
+          currentMeasurement: response.data,
           message: new Message(response.message,response.success?'success':'error'),
           loading: false,
         };
       }
-      case UserActionTypes.UPDATE_USER: {
+      case MeasurementActionTypes.UPDATE_MEASUREMENT: {
         return {
-          ...appUserState,
+          ...appMeasurementState,
           loading: true,
         };
       }
-      case UserActionTypes.UPDATE_USER_SUCCESS: {
-        let users = this.users;
-        users.items = [...users.items.filter(c => c.id != action.payload.data.id), action.payload.data];
+      case MeasurementActionTypes.UPDATE_MEASUREMENT_SUCCESS: {
+        let Measurements = this.Measurements;
+        Measurements.items = [...Measurements.items.filter(c => c.id != action.payload.data.id), action.payload.data];
         return {
-          ...appUserState,
-          users: users,
+          ...appMeasurementState,
+          Measurements: Measurements,
           message:new Message(action.payload.message,action.payload.success?'success':'error'),
           loading: false,
         };
       }
-      case UserActionTypes.LOAD_ERROR: {
+      case MeasurementActionTypes.LOAD_ERROR: {
         return {
-          ...appUserState,
+          ...appMeasurementState,
           loading: false, 
           message:new Message(action.payload.message,action.payload.success?'success':'error'),
         };
       }
       default:
-        return appUserState;
+        return appMeasurementState;
     }
   }
-  export const selectUserState = (state) => state.UserState;
-  export const selectAllusers = createSelector(
-    selectUserState,
-    (state) => state?.users
+  export const selectMeasurementState = (state) => state.MeasurementState;
+  export const selectAllMeasurements = createSelector(
+    selectMeasurementState,
+    (state) => state?.Measurements
   );
   
-  export const selectCurrentUser = createSelector(
-    selectUserState,
-    (state) => state?.currentUser
+  export const selectCurrentMeasurement = createSelector(
+    selectMeasurementState,
+    (state) => state?.currentMeasurement
   );
   export const selectMessageApi = createSelector(
-    selectUserState,
+    selectMeasurementState,
     (state) =>state.message
   );
