@@ -1,0 +1,7 @@
+<input id="input-file" type="file" style="display:none" (change)="onChangeImage($event)">
+<div *ngIf="progress != -1" class="spinner-border position-absolute text-primary" style="right: -1px; top: -6px" role="status">
+    <span class="sr-only" style="width: 36px; height: 36px;">Loading...</span>
+</div>
+<button *ngIf="progress == -1" (click)="openFile($event)" class="position-absolute btn" style="right: -20px; top: -20px">
+<i data-feather="edit" style="width: 36px; height: 36px;" appFeatherIcon></i>
+</button>

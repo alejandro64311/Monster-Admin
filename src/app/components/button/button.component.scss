@@ -1,0 +1,38 @@
+.vc-button-container {
+  margin: 10px;
+}
+
+.vc-button {
+  background-color: #ed0000;
+  min-height: 50px;
+  width: -moz-available;
+  border-radius: 10px;
+  border: 0px solid #fff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0;
+  cursor: pointer;
+
+  /* font */
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0.002em;
+  color: #ffffff;
+  width: 100%;
+}
+
+.vc-button:hover {
+  background-color: #ed0000;
+  width: -moz-available;
+  border-radius: 10px;
+  border: 0px solid #fff;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 0;
+}
+
+.vc-button:disabled {
+  background-color: #adadad;
+  pointer-events: none;
+}

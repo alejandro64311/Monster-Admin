@@ -13,7 +13,12 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { ComponentsModule } from "./components/components.module";
-
+import { StoreModule } from "@ngrx/store";
+import { reducers,metaReducers } from "./data"; 
+import { EffectsModule } from "@ngrx/effects";
+import { UserEffects } from "./data/user/user.effects";
+import { MeasurementEffects } from "./data/measurement/measurement.effects";
+import { HydrationEffects } from "./data/hydration/hydration.effects";
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -23,7 +28,9 @@ import { ComponentsModule } from "./components/components.module";
     NgbModule,
     RouterModule,
     AppRoutingModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    StoreModule.forRoot(reducers, { metaReducers }),
+    EffectsModule.forRoot([UserEffects, MeasurementEffects,HydrationEffects]),
   ],
   declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent],
   providers: [],

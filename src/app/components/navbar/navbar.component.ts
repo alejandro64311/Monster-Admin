@@ -1,8 +1,9 @@
-import { Component, OnInit, ElementRef, OnDestroy } from "@angular/core";
+import { Component, OnInit, ElementRef, OnDestroy, ViewChild } from "@angular/core";
 import { ROUTES } from "../sidebar/sidebar.component";
 import { Location } from "@angular/common";
 import { Router } from "@angular/router";
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { UserSearchComponent } from "../user-search/user-search.component";
 
 @Component({
   selector: "app-navbar",
@@ -19,7 +20,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public isCollapsed = true;
 
   closeResult: string;
-
+  @ViewChild('content') private modalComponent: UserSearchComponent
+  async openModal() {
+    return await this.modalComponent.open()
+  }
   constructor(
     location: Location,
     private element: ElementRef,
@@ -173,7 +177,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     return "Dashboard";
   }
 
-  open(content) {
+  open(content) { 
     this.modalService.open(content, {windowClass: 'modal-search'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {

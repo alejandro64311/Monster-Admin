@@ -1,0 +1,25 @@
+ 
+<ng-template #modal>
+    <div class="modal-header">
+        <input [formControl]="searchForm"
+        class=" form-control text-primary"
+        id="inlineFormInputGroup"
+        placeholder="Buscar"
+        type="text"/>
+  
+      <button
+        aria-label="Close"
+        class=" close"
+        data-dismiss="modal"
+        type="button"
+        (click)="close()"
+      >
+        <i class=" tim-icons icon-simple-remove"> </i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <ng-content></ng-content>
+    </div>
+  
+    
+  </ng-template>

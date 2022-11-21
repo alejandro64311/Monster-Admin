@@ -1,0 +1,10 @@
+<div class="vc-input_container">
+  <p *ngIf="label != ''" class="vc-input_label">{{ label }}</p>
+  <ng-container *ngIf="control">
+    <textarea class="vc-input" [rows]="rows" [placeholder]="placeholder" [formControl]="control"></textarea>
+  </ng-container>
+
+  <ng-container *ngIf="!control">
+    <textarea class="vc-input"  [rows]="rows" [placeholder]="placeholder"></textarea>
+  </ng-container>
+</div>
