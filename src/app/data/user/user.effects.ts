@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { AlertService } from "src/app/services/commons/alert.service";
 import { UserService } from "src/app/services/user.service";
-import { CreateUserSuccess, LoadUserAllSuccess, LoadUserByIdSuccess, UpdateUserSuccess, UserActionTypes, UserFailed } from "./user.actions";
+import { CreateUserSuccess, LoadUserAllSuccess, LoadUserByFilterSuccess, LoadUserByIdSuccess, UpdateUserSuccess, UserActionTypes, UserFailed } from "./user.actions";
 import { of } from "rxjs";
 import { map, mergeMap, catchError, tap } from "rxjs/operators";
 @Injectable()
@@ -33,6 +33,26 @@ export class UserEffects {
       })
     )
   );
+  loadUsersByFilter$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(UserActionTypes.LOAD_USER_BY_FILTER),
+    tap(() => {
+      console.log("Start Load Users By Filter");
+    }),
+    mergeMap((action: any) => {
+      console.log(action);
+      return this.UserService.getByFilter(action.payload.request).pipe(
+        map(
+          (response) => new LoadUserByFilterSuccess({ response: response })
+        ),
+        tap((Users) => {
+          console.log("End Load Users By Filter", Users);
+        }),
+        catchError((error) => of(new UserFailed({ error: error.error })))
+      );
+    })
+  )
+);
   loadUserById$ = createEffect(() =>
   this.actions$.pipe(
     ofType(UserActionTypes.LOAD_USER_BY_ID),

@@ -17,9 +17,9 @@ export class PaginationWrapper<T> {
 }
 
 export class RequestPaginationApi {
-  page: number = 0;
-  size: number = 10;
+  constructor(private page  = 0, private size= 10){
 
+  }
   /**
      * const parameters = {
       var1: 'value1',

@@ -19,28 +19,35 @@ export class UserService {
   ): Observable<ResponsePaginationApi<User>> {
    
     return this.http.get<ResponsePaginationApi<User>>(
-      `${environment.api}/user?${request.getUri()}`
+      `${environment.api}/users?${request.getUri()}`
     );
   }
   getById(
     id:number
   ): Observable<ResponseApi<User>> {
     return this.http.get<ResponseApi<User>>(
-      `${environment.api}/user/${id}`
+      `${environment.api}/users/${id}`
+    );
+  }
+  getByFilter(
+    request: RequestPaginationApi
+  ): Observable<ResponsePaginationApi<User>> {
+    return this.http.get<ResponsePaginationApi<User>>(
+      `${environment.api}/users/filter?${request.getUri()}`
     );
   }
   create(
     User:CreateUserCommand
   ): Observable<ResponseApi<User>> {
     return this.http.post<ResponseApi<User>>(
-      `${environment.api}/user`,User
+      `${environment.api}/users`,User
     );
   }
   update(
      id: number,User:UpdateUserCommand
   ): Observable<ResponseApi<User>> {
     return this.http.put<ResponseApi<User>>(
-      `${environment.api}/user/${id}`,User
+      `${environment.api}/users/${id}`,User
     );
   }
 }

@@ -1,6 +1,7 @@
 import { createSelector } from "@ngrx/store";
 import { User } from "src/app/models/user/user.model";
 import { PaginationWrapper } from "src/app/utils/models/api.model";
+import { AppState } from "..";
 import { BaseState, Message } from "../commons/base-state.data";
 import { UserActionTypes } from "./user.actions";
 
@@ -45,6 +46,21 @@ export interface UserState extends BaseState {
           ...appUserState,
           currentUser: action.payload.data,
           loading: false,
+        };
+      }
+      case UserActionTypes.LOAD_USER_BY_FILTER: {
+        return {
+          ...appUserState,
+          loading: true,
+        };
+      }
+      case UserActionTypes.LOAD_USER_BY_FILTER_SUCCESS: {
+        let response = action.payload.response;
+        return {
+          ...appUserState,
+          users: response.data,
+          loading: false,
+          message: new Message(response.message,response.success?'success':'error'),
         };
       }
       case UserActionTypes.CREATE_USER: {
@@ -93,17 +109,18 @@ export interface UserState extends BaseState {
         return appUserState;
     }
   }
-  export const selectUserState = (state) => state.UserState;
-  export const selectAllusers = createSelector(
+  export const selectUserState = (state) => state.userState;
+
+  export const selectAllUsers = createSelector(
     selectUserState,
-    (state) => state?.users
+    (state:UserState) => state?.users
   );
   
   export const selectCurrentUser = createSelector(
     selectUserState,
-    (state) => state?.currentUser
+    (state:UserState) => state?.currentUser
   );
   export const selectMessageApi = createSelector(
     selectUserState,
-    (state) =>state.message
+    (state:UserState) =>state?.message
   );

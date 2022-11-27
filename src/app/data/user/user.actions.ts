@@ -1,12 +1,14 @@
 import { Action } from "@ngrx/store";
 import { CreateUserCommand, UpdateUserCommand, User } from "src/app/models/user/user.model";
-import { PaginationWrapper, RequestPaginationApi, ResponseApi } from "src/app/utils/models/api.model";
+import { PaginationWrapper, RequestPaginationApi, ResponseApi, ResponsePaginationApi } from "src/app/utils/models/api.model";
 
 export enum UserActionTypes {
     LOAD_USER = "[User] Load User",
     LOAD_USER_SUCCESS = "[User] Load User success",
     LOAD_USER_BY_ID = "[User] Load User by id",
     LOAD_USER_BY_ID_SUCCESS = "[User] Load User by id success",
+    LOAD_USER_BY_FILTER = "[User] Load User by filter",
+    LOAD_USER_BY_FILTER_SUCCESS = "[User] Load User by filter success",
     LOAD_ERROR = "[User] Load Error",
     CREATE_USER = "[User] Create User",
     CREATE_USER_SUCCESS = "[User] Create User success",
@@ -30,6 +32,15 @@ export enum UserActionTypes {
     readonly type = UserActionTypes.LOAD_USER_BY_ID_SUCCESS;
     constructor(public payload: { data: ResponseApi<User> }) {}
   }
+  export class LoadUserByFilter implements Action {
+    readonly type = UserActionTypes.LOAD_USER_BY_FILTER;
+    constructor(public payload: { request: RequestPaginationApi }) {}
+  }
+  export class LoadUserByFilterSuccess implements Action {
+    readonly type = UserActionTypes.LOAD_USER_BY_FILTER_SUCCESS;
+    constructor(public payload: { response: ResponsePaginationApi<User> }) {}
+  }
+
   export class CreateUser implements Action {
     readonly type = UserActionTypes.CREATE_USER;
     constructor(public payload: { request: CreateUserCommand }) {}
