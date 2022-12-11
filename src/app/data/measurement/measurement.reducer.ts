@@ -7,12 +7,12 @@ import { MeasurementActionTypes } from "./measurement.actions";
 
 export interface MeasurementState extends BaseState {
     currentMeasurement: Measurement;
-    Measurements: PaginationWrapper<Measurement>;
+    measurements: PaginationWrapper<Measurement>;
   }
   
   const initialMeasurementState: MeasurementState = {
     currentMeasurement: null,
-    Measurements: new PaginationWrapper(),
+    measurements: new PaginationWrapper(),
     loading: false, 
     message: null
   };
@@ -29,9 +29,11 @@ export interface MeasurementState extends BaseState {
         };
       }
       case MeasurementActionTypes.LOAD_MEASUREMENT_SUCCESS: {
+        console.log("action.payload.data",action.payload);
+        
         return {
           ...appMeasurementState,
-          Measurements: action.payload.data,
+          measurements: action.payload.data,
           loading: false,
         };
       }
@@ -56,12 +58,12 @@ export interface MeasurementState extends BaseState {
       }
       case MeasurementActionTypes.CREATE_MEASUREMENT_SUCCESS: {
         let response = action.payload.data;
-        let Measurements = appMeasurementState.Measurements;
+        let Measurements = appMeasurementState.measurements;
         Measurements.items = [...Measurements.items, response.data];
   
         return {
           ...appMeasurementState,
-          Measurements: Measurements,
+          measurements: Measurements,
           currentMeasurement: response.data,
           message: new Message(response.message,response.success?'success':'error'),
           loading: false,
@@ -78,7 +80,7 @@ export interface MeasurementState extends BaseState {
         Measurements.items = [...Measurements.items.filter(c => c.id != action.payload.data.id), action.payload.data];
         return {
           ...appMeasurementState,
-          Measurements: Measurements,
+          measurements: Measurements,
           message:new Message(action.payload.message,action.payload.success?'success':'error'),
           loading: false,
         };
@@ -94,10 +96,10 @@ export interface MeasurementState extends BaseState {
         return appMeasurementState;
     }
   }
-  export const selectMeasurementState = (state) => state.MeasurementState;
+  export const selectMeasurementState = (state) => state.measurementState;
   export const selectAllMeasurements = createSelector(
     selectMeasurementState,
-    (state) => state?.Measurements
+    (state) => state?.measurements
   );
   
   export const selectCurrentMeasurement = createSelector(

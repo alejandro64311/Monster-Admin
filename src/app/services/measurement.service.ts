@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CreateMeasurementCommand, Measurement, UpdateMeasurementCommand } from '../models/user/measurement.model';
-import { PaginationWrapper, RequestPaginationApi, ResponseApi } from '../utils/models/api.model';
+import { PaginationWrapper, RequestPaginationApi, ResponseApi, ResponsePaginationApi } from '../utils/models/api.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +13,12 @@ export class MeasurementService {
 
 constructor(private http: HttpClient) { } 
 
-getAllByUserId(
-  userId:number,
+getAllByUserId( 
   request: RequestPaginationApi
-): Observable<PaginationWrapper<Measurement>> {
+): Observable<ResponsePaginationApi<Measurement>> {
  
-  return this.http.get<PaginationWrapper<Measurement>>(
-    `${environment.api}/v1/measurements/${userId}?${request.getUri()}`
+  return this.http.get<ResponsePaginationApi<Measurement>>(
+    `${environment.api}/v1/measurements?${request.getUri()}`
   );
 }
 getById(

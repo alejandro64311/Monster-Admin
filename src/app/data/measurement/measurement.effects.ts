@@ -4,7 +4,7 @@ import { AlertService } from "src/app/services/commons/alert.service";
 import { MeasurementService } from "src/app/services/Measurement.service"; 
 import { of } from "rxjs";
 import { map, mergeMap, catchError, tap } from "rxjs/operators";
-import { CreateMeasurementSuccess, LoadMeasurementAllSuccess, LoadMeasurementByIdSuccess, MeasurementActionTypes, MeasurementFailed, UpdateMeasurementSuccess } from "./measurement.actions";
+import { CreateMeasurementSuccess, LoadAllMeasurementsSuccess, LoadMeasurementByIdSuccess, MeasurementActionTypes, MeasurementFailed, UpdateMeasurementSuccess } from "./measurement.actions";
 @Injectable()
 export class MeasurementEffects {
   constructor(
@@ -21,9 +21,9 @@ export class MeasurementEffects {
       }),
       mergeMap((action: any) => {
         console.log(action);
-        return this.MeasurementService.getAllByUserId(action.payload.id,action.payload.requestParams).pipe(
+        return this.MeasurementService.getAllByUserId(action.payload.requestParams).pipe(
           map(
-            (response) => new LoadMeasurementAllSuccess({ data: response })
+            (response) => new LoadAllMeasurementsSuccess({ data: response.data })
           ),
           tap((Measurements) => {
             console.log("End Load Measurements All", Measurements);

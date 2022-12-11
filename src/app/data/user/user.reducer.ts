@@ -63,6 +63,14 @@ export interface UserState extends BaseState {
           message: new Message(response.message,response.success?'success':'error'),
         };
       }
+      case UserActionTypes.SELECT_USER: {
+        console.log("action.payload.user",action.payload.user);
+        
+        return {
+          ...appUserState,
+          currentUser:action.payload.user,
+        };
+      }
       case UserActionTypes.CREATE_USER: {
         return {
           ...appUserState,

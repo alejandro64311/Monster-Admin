@@ -14,11 +14,11 @@ export enum MeasurementActionTypes {
     UPDATE_MEASUREMENT_SUCCESS = "[Measurement] Update Measurement success",
   }
   
-  export class LoadMeasurementAll implements Action {
+  export class LoadAllMeasurements implements Action {
     readonly type = MeasurementActionTypes.LOAD_MEASUREMENT;
-    constructor(public payload: {id:number, requestParams: RequestPaginationApi }) {}
+    constructor(public payload: {requestParams: RequestPaginationApi }) {}
   }
-  export class LoadMeasurementAllSuccess implements Action {
+  export class LoadAllMeasurementsSuccess implements Action {
     readonly type = MeasurementActionTypes.LOAD_MEASUREMENT_SUCCESS;
     constructor(public payload: { data: PaginationWrapper<Measurement> }) {}
   }

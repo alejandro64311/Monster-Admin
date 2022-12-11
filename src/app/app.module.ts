@@ -21,6 +21,7 @@ import { MeasurementEffects } from "./data/measurement/measurement.effects";
 import { HydrationEffects } from "./data/hydration/hydration.effects";
 @NgModule({
   imports: [
+    StoreModule.forRoot(reducers, { metaReducers }),
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
@@ -29,7 +30,7 @@ import { HydrationEffects } from "./data/hydration/hydration.effects";
     RouterModule,
     AppRoutingModule,
     ToastrModule.forRoot(),
-    StoreModule.forRoot(reducers, { metaReducers }),
+  
     EffectsModule.forRoot([UserEffects, MeasurementEffects,HydrationEffects]),
   ],
   declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent],

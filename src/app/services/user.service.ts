@@ -19,21 +19,21 @@ export class UserService {
   ): Observable<ResponsePaginationApi<User>> {
    
     return this.http.get<ResponsePaginationApi<User>>(
-      `${environment.api}/users?${request.getUri()}`
+      `${environment.api}/v1/users?${request.getUri()}`
     );
   }
   getById(
     id:number
   ): Observable<ResponseApi<User>> {
     return this.http.get<ResponseApi<User>>(
-      `${environment.api}/users/${id}`
+      `${environment.api}/v1/users/${id}`
     );
   }
   getByFilter(
     request: RequestPaginationApi
   ): Observable<ResponsePaginationApi<User>> {
     return this.http.get<ResponsePaginationApi<User>>(
-      `${environment.api}/users/filter?${request.getUri()}`
+      `${environment.api}/v1/users/filter?${request.getUri()}`
     );
   }
   create(

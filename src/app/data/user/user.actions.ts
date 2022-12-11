@@ -14,6 +14,7 @@ export enum UserActionTypes {
     CREATE_USER_SUCCESS = "[User] Create User success",
     UPDATE_USER = "[User] Update User",
     UPDATE_USER_SUCCESS = "[User] Update User success",
+    SELECT_USER = "[User] Select User",
   }
   
   export class LoadUserAll implements Action {
@@ -35,6 +36,10 @@ export enum UserActionTypes {
   export class LoadUserByFilter implements Action {
     readonly type = UserActionTypes.LOAD_USER_BY_FILTER;
     constructor(public payload: { request: RequestPaginationApi }) {}
+  }
+  export class SelectUser implements Action {
+    readonly type = UserActionTypes.SELECT_USER;
+    constructor(public payload: { user: User }) {}
   }
   export class LoadUserByFilterSuccess implements Action {
     readonly type = UserActionTypes.LOAD_USER_BY_FILTER_SUCCESS;
