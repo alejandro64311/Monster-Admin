@@ -4,7 +4,7 @@ import { AlertService } from "src/app/services/commons/alert.service";
 import { MeasurementService } from "src/app/services/Measurement.service"; 
 import { of } from "rxjs";
 import { map, mergeMap, catchError, tap } from "rxjs/operators";
-import { CreateMeasurementSuccess, LoadAllMeasurementsSuccess, LoadMeasurementByIdSuccess, MeasurementActionTypes, MeasurementFailed, UpdateMeasurementSuccess } from "./measurement.actions";
+import { CreateMeasurementSuccess, LoadAllMeasurementsSuccess, LoadChartMeasurementstByIdSuccess, LoadMeasurementByIdSuccess, MeasurementActionTypes, MeasurementFailed, UpdateMeasurementSuccess } from "./measurement.actions";
 @Injectable()
 export class MeasurementEffects {
   constructor(
@@ -27,6 +27,26 @@ export class MeasurementEffects {
           ),
           tap((Measurements) => {
             console.log("End Load Measurements All", Measurements);
+          }),
+          catchError((error) => of(new MeasurementFailed({ error: error.error })))
+        );
+      })
+    )
+  );
+  loadChartMeasurements$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(MeasurementActionTypes.LOAD_CHART_MEASUREMENT_BY_ID),
+      tap(() => {
+        console.log("Start Load Chart Measurements All");
+      }),
+      mergeMap((action: any) => {
+        console.log(action);
+        return this.MeasurementService.getChartMeasurementsByUserId(action.payload.userId).pipe(
+          map(
+            (response) => new LoadChartMeasurementstByIdSuccess({ data: response.data })
+          ),
+          tap((Measurements) => {
+            console.log("End Load Chart Measurements All", Measurements);
           }),
           catchError((error) => of(new MeasurementFailed({ error: error.error })))
         );

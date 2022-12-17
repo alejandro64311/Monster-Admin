@@ -1,10 +1,13 @@
 import { Action } from "@ngrx/store"; 
+import { ChartMeasurement } from "src/app/models/user/chartMeasurement.model";
 import { CreateMeasurementCommand, Measurement, UpdateMeasurementCommand } from "src/app/models/user/measurement.model";
 import { PaginationWrapper, RequestPaginationApi, ResponseApi } from "src/app/utils/models/api.model";
 
 export enum MeasurementActionTypes {
     LOAD_MEASUREMENT = "[Measurement] Load Measurement",
     LOAD_MEASUREMENT_SUCCESS = "[Measurement] Load Measurement success",
+    LOAD_CHART_MEASUREMENT_BY_ID = "[Measurement] chart Load Measurement",
+    LOAD_CHART_MEASUREMENT_BY_ID_SUCCESS = "[Measurement] chart Load Measurement success",
     LOAD_MEASUREMENT_BY_ID = "[Measurement] Load Measurement by id",
     LOAD_MEASUREMENT_BY_ID_SUCCESS = "[Measurement] Load Measurement by id success",
     LOAD_ERROR = "[Measurement] Load Error",
@@ -21,6 +24,22 @@ export enum MeasurementActionTypes {
   export class LoadAllMeasurementsSuccess implements Action {
     readonly type = MeasurementActionTypes.LOAD_MEASUREMENT_SUCCESS;
     constructor(public payload: { data: PaginationWrapper<Measurement> }) {}
+  }
+  export class LoadChartMeasurementstById implements Action {
+    readonly type = MeasurementActionTypes.LOAD_CHART_MEASUREMENT_BY_ID;
+    constructor(public payload: {userId:number }) {}
+  }
+  export class LoadChartMeasurementstByIdSuccess implements Action {
+    readonly type = MeasurementActionTypes.LOAD_CHART_MEASUREMENT_BY_ID_SUCCESS;
+    constructor(public payload: { data: ChartMeasurement[] }) {}
+  }
+  export class LoadChartMeasurementById implements Action {
+    readonly type = MeasurementActionTypes.LOAD_MEASUREMENT_BY_ID;
+    constructor(public payload: { id:number }) {}
+  }
+  export class LoadChartMeasurementByIdSuccess implements Action {
+    readonly type = MeasurementActionTypes.LOAD_MEASUREMENT_BY_ID_SUCCESS;
+    constructor(public payload: { data: ResponseApi<Measurement> }) {}
   }
   export class LoadMeasurementById implements Action {
     readonly type = MeasurementActionTypes.LOAD_MEASUREMENT_BY_ID;

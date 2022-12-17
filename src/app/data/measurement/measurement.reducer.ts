@@ -1,4 +1,5 @@
 import { createSelector } from "@ngrx/store";
+import { ChartMeasurement } from "src/app/models/user/chartMeasurement.model";
 import { Measurement } from "src/app/models/user/measurement.model";
 import { PaginationWrapper } from "src/app/utils/models/api.model";
 import { BaseState, Message } from "../commons/base-state.data";
@@ -7,11 +8,13 @@ import { MeasurementActionTypes } from "./measurement.actions";
 
 export interface MeasurementState extends BaseState {
     currentMeasurement: Measurement;
+    chartMeasurements: ChartMeasurement[];
     measurements: PaginationWrapper<Measurement>;
   }
   
   const initialMeasurementState: MeasurementState = {
     currentMeasurement: null,
+    chartMeasurements: null,
     measurements: new PaginationWrapper(),
     loading: false, 
     message: null
@@ -47,6 +50,19 @@ export interface MeasurementState extends BaseState {
         return {
           ...appMeasurementState,
           currentMeasurement: action.payload.data,
+          loading: false,
+        };
+      }
+      case MeasurementActionTypes.LOAD_CHART_MEASUREMENT_BY_ID: {
+        return {
+          ...appMeasurementState,
+          loading: true,
+        };
+      }
+      case MeasurementActionTypes.LOAD_CHART_MEASUREMENT_BY_ID_SUCCESS: {
+        return {
+          ...appMeasurementState,
+          chartMeasurements: action.payload.data,
           loading: false,
         };
       }
@@ -100,6 +116,10 @@ export interface MeasurementState extends BaseState {
   export const selectAllMeasurements = createSelector(
     selectMeasurementState,
     (state) => state?.measurements
+  );
+  export const selectChartMeasurements = createSelector(
+    selectMeasurementState,
+    (state) => state?.chartMeasurements
   );
   
   export const selectCurrentMeasurement = createSelector(

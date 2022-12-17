@@ -2,8 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { ChartMeasurement } from '../models/user/chartMeasurement.model';
 import { CreateMeasurementCommand, Measurement, UpdateMeasurementCommand } from '../models/user/measurement.model';
-import { PaginationWrapper, RequestPaginationApi, ResponseApi, ResponsePaginationApi } from '../utils/models/api.model';
+import {  RequestPaginationApi, ResponseApi, ResponsePaginationApi } from '../utils/models/api.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,12 +22,21 @@ getAllByUserId(
     `${environment.api}/v1/measurements?${request.getUri()}`
   );
 }
+
+getChartMeasurementsByUserId( 
+  userId:number
+): Observable<ResponseApi<ChartMeasurement[]>> {
+ 
+  return this.http.get<ResponseApi<ChartMeasurement[]>>(
+    `${environment.api}/v1/measurements/user/${userId}/chart`
+  );
+}
 getById(
   userId:number
 ): Observable<ResponseApi<Measurement>> {
  
   return this.http.get<ResponseApi<Measurement>>(
-    `${environment.api}/v1/measurements/${userId}`
+    `${environment.api}/v1/measurements/user/${userId}`
   );
 }
 create(
@@ -34,7 +44,7 @@ create(
   Measurement:CreateMeasurementCommand
 ): Observable<ResponseApi<Measurement>> {
   return this.http.post<ResponseApi<Measurement>>(
-    `${environment.api}/v1/measurements/${userId}`,Measurement
+    `${environment.api}/v1/measurements/user/${userId}`,Measurement
   );
 }
 update(
