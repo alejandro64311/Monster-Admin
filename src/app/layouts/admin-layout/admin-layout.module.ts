@@ -19,6 +19,7 @@ import { UserAnalysisComponent } from "src/app/pages/user-analysis/user-analysis
 import { UserMeasuresComponent } from "src/app/pages/user-measures/user-measures.component";
 import { UserInfoComponent } from "src/app/pages/user-info/user-info.component";
 import { UserSelectModalComponent } from "src/app/pages/user-select-modal/user-select-modal.component";
+import { BasicChartComponent } from "src/app/components/basic-chart/basic-chart.component";
 
 @NgModule({
   imports: [
@@ -41,7 +42,8 @@ import { UserSelectModalComponent } from "src/app/pages/user-select-modal/user-s
     UserAnalysisComponent,
     UserMeasuresComponent,
     UserInfoComponent,
-    UserSelectModalComponent
+    UserSelectModalComponent,
+    BasicChartComponent
   ]
 })
 export class AdminLayoutModule {}
