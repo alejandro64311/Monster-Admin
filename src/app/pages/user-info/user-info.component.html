@@ -2,44 +2,49 @@
     <div class=" row d-flex justify-content-center">
         <div class=" col-md-8 ">
             <div class=" card">
-                <div class=" card-header">
-                    <h5 class=" title">Datos basicos de SHARON MATINEZ</h5>
+                <div class=" card-header" >
+                    <h5 class=" title"*ngIf="currentUser!=null" >Datos basicos de {{currentUser.name}} {{currentUser.lastName}}</h5>
+                    <h5 class=" title"*ngIf="currentUser==null" >Creando usuario </h5>
                 </div>
                 <div class=" card-body all-icons">
-                    <form>
+                    <form [formGroup]="form">
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputPeso4">Nombre</label>
-                                <input type="text" class="form-control" id="inputPeso4" placeholder="Sharon Martinez">
+                                <input type="text" class="form-control" formControlName="name" id="inputPeso4" placeholder="Sharon Martinez">
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="inputPassword4">Contacto</label>
-                                <input type="number" class="form-control" id="inputPassword4" placeholder="30202226215">
+                                <label for="inputPeso4">Apellidos</label>
+                                <input type="text" class="form-control" formControlName="lastName" id="inputPeso4" placeholder="Sharon Martinez">
                             </div>
-
                             <div class="form-group col-md-6">
                                 <label for="inputAddress">Email</label>
-                                <input type="text" class="form-control" id="inputAddress" placeholder="ejemplo@gmail.com">
+                                <input type="text" class="form-control" formControlName="email" id="inputAddress" placeholder="ejemplo@gmail.com">
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="inputAddress2">Fecha nacimiento</label>
-                                <input type="date" class="form-control" id="inputAddress2">
+                                <label for="inputAddress">Numero de telefono</label>
+                                <input type="text" class="form-control" formControlName="phoneNumber" id="inputAddress" placeholder="3020303030">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputAddress2">Nombre de usuario</label>
+                                <input type="text" class="form-control" formControlName="username" id="inputAddress2">
                             </div>
 
                             <div class="form-group col-md-6">
                                 <label for="inputCity">Peso Inicial</label>
-                                <input type="number" class="form-control" id="inputAddress2" placeholder="70 kg">
+                                <input type="number" class="form-control" formControlName="initialWight" id="inputAddress2" placeholder="70 kg">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputState">Altura</label>
-                                <input type="number" class="form-control" id="inputCity" placeholder="168 cm">
+                                <input type="number" class="form-control" formControlName="height" id="inputCity" placeholder="168 cm">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputZip">Edad</label>
-                                <input type="number" class="form-control" id="inputZip" placeholder="25 años">
+                                <input type="number" class="form-control" formControlName="age" id="inputZip" placeholder="25 años">
                             </div>
                         </div>
-
+                        <button *ngIf="currentUser==null" type="button" class="btn btn-primary" (click)="create()">Crear</button>
+                        <button *ngIf="currentUser!=null" type="button" class="btn btn-primary" (click)="update()">Actualizar</button>
                     </form>
                 </div>
 

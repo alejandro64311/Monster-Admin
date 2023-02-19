@@ -19,7 +19,7 @@ getAllByUserId(
 ): Observable<ResponsePaginationApi<Measurement>> {
  
   return this.http.get<ResponsePaginationApi<Measurement>>(
-    `${environment.api}/v1/measurements?${request.getUri()}`
+    `${environment.api}/measurements?${request.getUri()}`
   );
 }
 
@@ -28,7 +28,7 @@ getChartMeasurementsByUserId(
 ): Observable<ResponseApi<ChartMeasurement[]>> {
  
   return this.http.get<ResponseApi<ChartMeasurement[]>>(
-    `${environment.api}/v1/measurements/user/${userId}/chart`
+    `${environment.api}/measurements/user/${userId}/chart`
   );
 }
 getById(
@@ -36,7 +36,7 @@ getById(
 ): Observable<ResponseApi<Measurement>> {
  
   return this.http.get<ResponseApi<Measurement>>(
-    `${environment.api}/v1/measurements/user/${userId}`
+    `${environment.api}/measurements/user/${userId}`
   );
 }
 create(
@@ -44,14 +44,14 @@ create(
   Measurement:CreateMeasurementCommand
 ): Observable<ResponseApi<Measurement>> {
   return this.http.post<ResponseApi<Measurement>>(
-    `${environment.api}/v1/measurements/user/${userId}`,Measurement
+    `${environment.api}/measurements/user/${userId}`,Measurement
   );
 }
 update(
    id: number,Measurement:UpdateMeasurementCommand
 ): Observable<ResponseApi<Measurement>> {
   return this.http.put<ResponseApi<Measurement>>(
-    `${environment.api}/v1/measurements/${id}`,Measurement
+    `${environment.api}/measurements/${id}`,Measurement
   );
 }
 }
